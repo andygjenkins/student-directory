@@ -49,9 +49,14 @@ def print_letter_selection(students)
   puts "Select students with names starting with: "
   letter = gets.chomp.capitalize
   students_selection = students.select { |student| student[:name][0] == letter}
-  students_selection.each do |student|
-    puts student[:name]
-  end
+  students_selection.each { |student| puts student[:name] }
+end
+
+def students_lessthan_x(students)
+  num_char = 12
+  puts "Here are the students with less than #{num_char} characters in their name: "
+  students_selection = students.select { |student| student[:name].length < num_char}
+  students_selection.each { |student| puts student[:name] }
 end
 
 def print_footer(students)
@@ -64,3 +69,4 @@ print_header
 print(students)
 print_footer(students)
 print_letter_selection(students)
+students_lessthan_x(students)

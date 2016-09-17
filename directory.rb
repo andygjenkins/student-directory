@@ -40,8 +40,10 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, i|
-    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  n = 1
+  while n <= students.length
+    puts "#{n} #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)"
+    n += 1
   end
 end
 
@@ -51,6 +53,7 @@ def print_letter_selection(students)
   students_selection = students.select { |student| student[:name][0] == letter}
   students_selection.each { |student| puts student[:name] }
 end
+
 
 def students_lessthan_x(students)
   num_char = 12

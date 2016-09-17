@@ -1,19 +1,20 @@
-=begin
+
 students = [
-{name: "Dr. Hannibal Lecter", cohort: :november},
-{name: "Darth Vader", cohort: :november},
-{name: "Nurse Ratched", cohort: :november},
+{name: "Dr. Hannibal Lecter", cohort: :september},
+{name: "Darth Vader", cohort: :september},
+{name: "Nurse Ratched", cohort: :september},
 {name: "Michael Corleone", cohort: :november},
 {name: "Alex DeLarge", cohort: :november},
 {name: "The Wicked Witch of the West", cohort: :november},
 {name: "Terminator", cohort: :november},
 {name: "Freddy Krueger", cohort: :november},
-{name: "The Joker", cohort: :november},
-{name: "Joffrey Baratheon", cohort: :november},
+{name: "The Joker", cohort: :september},
+{name: "Joffrey Baratheon", cohort: :september},
 {name: "Norman Bates", cohort: :november}
 ]
-=end
 
+
+=begin
 def input_students
   puts "Please enter student details"
   # creat an empty array
@@ -49,7 +50,7 @@ def input_students
   # return the array of students
   students
 end
-
+=end
 
 def print_header
   puts "The students of Villains Academy".center(40)
@@ -59,10 +60,22 @@ end
 def print(students)
   n = 1
   while n <= students.length
-    puts "#{n}. #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)".center(40)
+    puts "#{n}. #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)"
     n += 1
   end
 end
+
+def print_cohorts(students)
+  puts "Choose a cohort: "
+  cohort = gets.chomp.downcase.to_sym
+  students.map do |student|
+    if student[:cohort] == cohort
+      puts "#{student[:name]} (#{student[:cohort]} cohort)".center(40)
+    end
+  end
+end
+
+
 
 def print_letter_selection(students)
   puts "Select students with names starting with: "
@@ -84,9 +97,10 @@ def print_footer(students)
 end
 
 # nothing happens until we call the methods
-students = input_students
+#students = input_students
 print_header
 print(students)
-print_footer(students)
+#print_footer(students)
 #print_letter_selection(students)
 #students_lessthan_x(students)
+print_cohorts(students)

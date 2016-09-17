@@ -21,14 +21,14 @@ def input_students
   students = []
   # get the first names
   puts "What is their name?"
-  name = gets.chomp
+  name = gets.strip
   puts "What cohort are they in"
-  cohort = gets.chomp.downcase.to_sym
+  cohort = gets.strip.downcase.to_sym
   if cohort.empty?
     chort = :november
   end
   puts "Where were they born?"
-  cob = gets.chomp
+  cob = gets.strip
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
@@ -36,16 +36,16 @@ def input_students
     puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
     # prompt for additional students
     puts "Add another student? (y/n)"
-    break if gets.chomp == "n"
+    break if gets.strip == "n"
     puts "What is their name?"
-    name = gets.chomp
+    name = gets.strip
     puts "What cohort are they in"
-    cohort = gets.chomp.downcase.to_sym
+    cohort = gets.strip.downcase.to_sym
     if cohort.empty?
       chort = :november
     end
     puts "Where were they born?"
-    cob = gets.chomp
+    cob = gets.strip
   end
   # return the array of students
   students

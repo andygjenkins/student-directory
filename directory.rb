@@ -1,4 +1,4 @@
-
+=begin
 students = [
 {name: "Dr. Hannibal Lecter", cohort: :september},
 {name: "Darth Vader", cohort: :september},
@@ -12,9 +12,9 @@ students = [
 {name: "Joffrey Baratheon", cohort: :september},
 {name: "Norman Bates", cohort: :november}
 ]
+=end
 
 
-=begin
 def input_students
   puts "Please enter student details"
   # creat an empty array
@@ -33,7 +33,7 @@ def input_students
   while !name.empty? do
     # add the student hash to the array
     students << {name: name, cob: cob, cohort: cohort}
-    puts "Now we have  #{students.count} students"
+    puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
     # prompt for additional students
     puts "Add another student? (y/n)"
     break if gets.chomp == "n"
@@ -50,7 +50,7 @@ def input_students
   # return the array of students
   students
 end
-=end
+
 
 def print_header
   puts "The students of Villains Academy".center(40)
@@ -97,10 +97,10 @@ def print_footer(students)
 end
 
 # nothing happens until we call the methods
-#students = input_students
+students = input_students
 print_header
 print(students)
 #print_footer(students)
 #print_letter_selection(students)
 #students_lessthan_x(students)
-print_cohorts(students)
+#print_cohorts(students)

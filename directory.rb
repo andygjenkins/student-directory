@@ -1,4 +1,4 @@
-
+=begin
 students = [
 {name: "Dr. Hannibal Lecter", cohort: :november},
 {name: "Darth Vader", cohort: :november},
@@ -12,37 +12,44 @@ students = [
 {name: "Joffrey Baratheon", cohort: :november},
 {name: "Norman Bates", cohort: :november}
 ]
+=end
 
-=begin
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter student details"
   # creat an empty array
   students = []
   # get the first names
+  puts "What is their name?"
   name = gets.chomp
+  puts "Where were they born?"
+  cob = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cob: cob, cohort: :november}
     puts "Now we have  #{students.count} students"
-    # get another name from the user
+    # prompt for additional students
+    puts "Add another student? (y/n)"
+    break if gets.chomp == "n"
+    puts "What is their name?"
     name = gets.chomp
+    puts "Where were they born?"
+    cob = gets.chomp
   end
   # return the array of students
   students
 end
-=end
+
 
 def print_header
-  puts "The students of Villains Academy"
-  puts "-------------"
+  puts "The students of Villains Academy".center(40)
+  puts "".center(40, '-')
 end
 
 def print(students)
   n = 1
   while n <= students.length
-    puts "#{n} #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)"
+    puts "#{n}. #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)".center(40)
     n += 1
   end
 end
@@ -63,13 +70,13 @@ def students_lessthan_x(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  puts "Overall, we have #{students.count} great students".center(40)
 end
 
 # nothing happens until we call the methods
-#students = input_students
+students = input_students
 print_header
 print(students)
 print_footer(students)
-print_letter_selection(students)
-students_lessthan_x(students)
+#print_letter_selection(students)
+#students_lessthan_x(students)

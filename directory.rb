@@ -20,14 +20,14 @@ def input_students
   # creat an empty array
   # get the first names
   puts "What is their name?"
-  name = gets.strip
+  name = STDIN.gets.strip
   puts "What cohort are they in"
-  cohort = gets.strip.downcase.to_sym
+  cohort = STDIN.gets.strip.downcase.to_sym
   if cohort.empty?
     chort = :november
   end
   puts "Where were they born?"
-  cob = gets.strip
+  cob = STDIN.gets.strip
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
@@ -35,16 +35,16 @@ def input_students
     puts "Now we have #{@students.count} student#{@students.count == 1 ? '' : 's'}"
     # prompt for additional students
     puts "Add another student? (y/n)"
-    break if gets.strip == "n"
+    break if STDIN.gets.strip == "n"
     puts "What is their name?"
-    name = gets.strip
+    name = STDIN.gets.strip
     puts "What cohort are they in"
-    cohort = gets.strip.downcase.to_sym
+    cohort = STDIN.gets.strip.downcase.to_sym
     if cohort.empty?
       chort = :november
     end
     puts "Where were they born?"
-    cob = gets.strip
+    cob = STDIN.gets.strip
   end
 end
 
@@ -96,7 +96,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -143,13 +143,25 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
   end
   file.close
+end
+
+def try_load_students
+  filename = ARGV.first # first argument from the command line
+  return if filename.nil? # get out of the method if it isn't given
+  if File.exists?(filename) # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
 end
 
 interactive_menu

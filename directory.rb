@@ -101,10 +101,11 @@ def interactive_menu
 end
 
 def print_menu
+  puts ''
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load students from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load students from a file"
   puts "9. Exit"
 end
 
@@ -120,20 +121,29 @@ def process(selection)
       input_students
     when "2"
       show_students
+      puts "Here they are!"
     when "3"
       save_students
+      puts "Saved!"
     when "4"
-      load_students
+      puts "What is the filename?"
+      filename = gets.chomp
+      load_students(filename)
+      puts "Loaded!"
     when "9"
+      puts "Exiting..."
       exit
+
     else
       puts "Incorrect selection, try again"
   end
 end
 
 def save_students
+  puts "What do you want the file to be called?"
+  filename = gets.chomp
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # interate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]

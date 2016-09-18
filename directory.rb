@@ -31,7 +31,7 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    @students << {name: name, cob: cob, cohort: cohort}
+    add_student(name, cohort, cob)
     puts "Now we have #{@students.count} student#{@students.count == 1 ? '' : 's'}"
     # prompt for additional students
     puts "Add another student? (y/n)"
@@ -146,8 +146,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    name, cohort, cob = line.chomp.split(',')
+    add_student(name, cohort, cob)
   end
   file.close
 end
@@ -163,5 +163,10 @@ def try_load_students
     exit
   end
 end
+
+def add_student(name, cohort, cob)
+  @students << {name: name, cohort: cohort.to_sym, cob: cob}
+end
+
 
 interactive_menu

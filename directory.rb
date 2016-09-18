@@ -13,12 +13,11 @@ students = [
 {name: "Norman Bates", cohort: :november}
 ]
 =end
-
+@students = [] # an empty array accessible to all methods
 
 def input_students
   puts "Please enter student details"
   # creat an empty array
-  students = []
   # get the first names
   puts "What is their name?"
   name = gets.strip
@@ -32,8 +31,8 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cob: cob, cohort: cohort}
-    puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
+    @students << {name: name, cob: cob, cohort: cohort}
+    puts "Now we have #{@students.count} student#{@students.count == 1 ? '' : 's'}"
     # prompt for additional students
     puts "Add another student? (y/n)"
     break if gets.strip == "n"
@@ -47,8 +46,6 @@ def input_students
     puts "Where were they born?"
     cob = gets.strip
   end
-  # return the array of students
-  students
 end
 
 
@@ -57,18 +54,18 @@ def print_header
   puts "".center(40, '-')
 end
 
-def print(students)
+def print_students_list()
   n = 1
-  while n <= students.length
-    puts "#{n}. #{students[n-1][:name]} (#{students[n-1][:cohort]} cohort)"
+  while n <= @students.length
+    puts "#{n}. #{@students[n-1][:name]} (#{@students[n-1][:cohort]} cohort)"
     n += 1
   end
 end
 
-def print_cohorts(students)
+def print_cohorts()
   puts "Choose a cohort: "
   cohort = gets.chomp.downcase.to_sym
-  students.map do |student|
+  @students.map do |student|
     if student[:cohort] == cohort
       puts "#{student[:name]} (#{student[:cohort]} cohort)".center(40)
     end
@@ -77,47 +74,54 @@ end
 
 
 
-def print_letter_selection(students)
+def print_letter_selection()
   puts "Select students with names starting with: "
   letter = gets.chomp.capitalize
-  students_selection = students.select { |student| student[:name][0] == letter}
+  students_selection = @students.select { |student| student[:name][0] == letter}
   students_selection.each { |student| puts student[:name] }
 end
 
 
-def students_lessthan_x(students)
+def students_lessthan_x()
   num_char = 12
   puts "Here are the students with less than #{num_char} characters in their name: "
-  students_selection = students.select { |student| student[:name].length < num_char}
+  students_selection = @students.select { |student| student[:name].length < num_char}
   students_selection.each { |student| puts student[:name] }
 end
 
-def print_footer(students)
-  puts "Overall, we have #{students.count} great students".center(40)
+def print_footer()
+  puts "Overall, we have #{@students.count} great student#{@students.count == 1 ? '' : 's'}".center(40)
 end
 
 def interactive_menu
-  students = []
   loop do
-    # 1. print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-    # 2. read the input and save it into a variable
-    selection = gets.chomp
-    # 3. do what the user has asked
-    case selection
-      when "1"
-        students = input_students
-      when "2"
-        print_header
-        print(students)
-        print_footer(students)
-      when "9"
-        exit # this will case the program to terminate
-      else
-        "Incorrect selection, try again"
-      end
+    print_menu
+    process(gets.chomp)
+  end
+end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_students_list
+  print_footer()
+end
+
+def process(selection)
+  case selection
+    when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "Incorrect selection, try again"
   end
 end
 

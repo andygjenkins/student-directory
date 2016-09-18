@@ -143,23 +143,23 @@ def save_students
   puts "What do you want the file to be called?"
   filename = gets.chomp
   # open the file for writing
-  file = File.open(filename, "w")
-  # interate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open(filename, "w") do |i|
+    # interate over the array of students
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      i.puts csv_line
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
+  File.open(filename, "r") do |i|
+    i.readlines.each do |line|
     name, cohort, cob = line.chomp.split(',')
     add_student(name, cohort, cob)
-  end
-  file.close
+    end
+  end  
 end
 
 def try_load_students
